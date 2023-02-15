@@ -26,10 +26,12 @@ public class CollectionsDemoTest {
         String[] testData1 = new String[] { "Array", "Aura", "Australia" };
         String[] testData2 = new String[] { "array", "aura", "australia" };
         String[] testData3 = new String[] { "array", "laura", "Ostralia" };
+        String[] testData4 = new String[] { "Array", "aura", "Australia" };
         return new Object[][] {
             { Arrays.asList(testData1), 'A', 3 },
             { Arrays.asList(testData2), 'A', 0 },
             { Arrays.asList(testData3), 'O', 1 },
+            { Arrays.asList(testData4), 'A', 2 },
             { null, 'F', 0 },
             { new ArrayList<String>(0), 'F', 0 },
         };

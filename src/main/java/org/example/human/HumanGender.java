@@ -1,8 +1,8 @@
 package org.example.human;
 
 public enum HumanGender {
-    MALE("Male"),
-    FEMALE("Female");
+    MALE("male"),
+    FEMALE("female");
 
     private final String gender;
 
@@ -10,21 +10,13 @@ public enum HumanGender {
         this.gender = gender;
     }
 
-    public static boolean contains(final String humanGenderString) {
-        for (var humanGender : values()) {
-            if (humanGenderString.equals(humanGender.gender)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public static HumanGender getGenderByValue(String gender) {
-        if (gender.equals("Male")) {
+        final String lowCaseGenderStr = gender.toLowerCase();
+        if (MALE.gender.equals(lowCaseGenderStr)) {
             return MALE;
-        }
-        return FEMALE;
+        } else if (FEMALE.gender.equals(lowCaseGenderStr)) {
+            return FEMALE;
+        } else throw new IllegalArgumentException("Not a gender: " + gender);
     }
 
     @Override

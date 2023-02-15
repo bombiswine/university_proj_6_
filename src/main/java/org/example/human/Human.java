@@ -35,11 +35,6 @@ public class Human {
                 "The null passed into Human's constructor as human gender argument"
             );
         }
-        if (!HumanGender.contains(gender)) {
-            throw new IllegalArgumentException(
-                "The null passed into Human's constructor as human gender argument"
-            );
-        }
         if (nationality == null || nationality.isEmpty()) {
             throw new IllegalArgumentException(
                 "The null passed into Human's constructor as nationality argument"
@@ -64,8 +59,31 @@ public class Human {
         this.nationality = nationality;
     }
 
+    public Human(final Human person) {
+        if (person == null) {
+            throw new IllegalArgumentException(
+                "The null-ref passed as Human argument into Human's copy constructor"
+            );
+        }
+
+        fullName    = new FullName(person.getFullName());
+        birthDate   = person.getBirthDate();
+        gender      = person.getGender();
+        height      = person.getHeight();
+        weight      = person.getWeight();
+        nationality = person.getNationality();
+    }
+
     public FullName getFullName() {
         return fullName;
+    }
+
+    public String getName() {
+        return fullName.getFirstName();
+    }
+
+    public String getSurname() {
+        return fullName.getSurname();
     }
 
     public LocalDate getBirthDate() {

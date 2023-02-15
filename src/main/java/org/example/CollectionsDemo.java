@@ -3,12 +3,12 @@ package org.example;
 import java.util.List;
 
 public class CollectionsDemo {
-    public static int countStringStartsWith(List<String> strings, final char ch) {
+    public static int countStringStartsWith(final List<String> strings, final char ch) {
         if (strings == null || strings.isEmpty()) {
             return 0;
         }
         int counter = 0;
-        for (var string : strings) {
+        for (String string : strings) {
             if (string != null && string.startsWith(Character.toString(ch))) {
                 counter++;
             }
@@ -16,6 +16,7 @@ public class CollectionsDemo {
 
         return counter;
     }
+
 
 
 }

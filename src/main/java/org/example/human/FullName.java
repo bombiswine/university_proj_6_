@@ -46,6 +46,17 @@ public class FullName {
         this.surname    = surname;
     }
 
+    public FullName(final FullName anotherFullName) {
+        if (anotherFullName == null) {
+            throw new IllegalArgumentException(
+                "null-ref passed into FullName's copying constructor"
+            );
+        }
+        firstName  = anotherFullName.getFirstName();
+        middleName = anotherFullName.getMiddleName();
+        surname    = anotherFullName.getSurname();
+    }
+
     public String getFirstName() {
         return firstName;
     }
