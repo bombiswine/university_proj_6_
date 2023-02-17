@@ -16,7 +16,4 @@ public class CollectionsDemo {
 
         return counter;
     }
-
-
-
 }
