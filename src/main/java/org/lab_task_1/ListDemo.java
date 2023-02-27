@@ -65,8 +65,27 @@ public class ListDemo {
         return ListOfSetsHavingEmptyIntersectionWithGivenSet;
     }
 
-//    public static Set<Human> getSetOfOldestPeople(List<Human> people) {
-//
-//    }
+    public static <T extends Human> Set<T> getSetOfOldestPeople(final List<T> people) {
+        if (people == null) {
+            throw new IllegalArgumentException(
+                "The null-ref passed as List<T> people argument into getSetOfOldestPeople"
+            );
+        }
 
+        Set<T> oldestPeople = new TreeSet<>();
+        List<T> peopleCopy  = new ArrayList<>(people);
+        peopleCopy.removeAll(Collections.singleton(null));
+
+        if (!peopleCopy.isEmpty()) {
+            Collections.sort(peopleCopy);
+            final int maxAge = peopleCopy.get(peopleCopy.size() - 1).getAge();
+            for (T person : peopleCopy) {
+                if (person.getAge() == maxAge) {
+                    oldestPeople.add(person);
+                }
+            }
+        }
+
+        return oldestPeople;
+    }
 }
