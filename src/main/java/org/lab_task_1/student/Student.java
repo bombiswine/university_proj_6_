@@ -1,7 +1,7 @@
-package org.example.student;
+package org.lab_task_1.student;
 
-import org.example.human.FullName;
-import org.example.human.Human;
+import org.lab_task_1.human.FullName;
+import org.lab_task_1.human.Human;
 
 import java.time.LocalDate;
 

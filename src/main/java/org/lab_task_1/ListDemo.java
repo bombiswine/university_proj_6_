@@ -1,6 +1,6 @@
-package org.example;
+package org.lab_task_1;
 
-import org.example.human.Human;
+import org.lab_task_1.human.Human;
 
 import java.util.*;
 

@@ -1,15 +1,15 @@
-package org.example;
+package org.lab_task_1;
 
-import org.example.human.FullName;
-import org.example.human.Human;
+import org.lab_task_1.human.FullName;
+import org.lab_task_1.human.Human;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 import java.util.*;
 
-import static org.example.ListDemo.*;
-import static org.example.ListDemoTest.HumansTestData.*;
+import static org.lab_task_1.ListDemo.*;
+import static org.lab_task_1.ListDemoTest.HumansTestData.*;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static org.testng.AssertJUnit.assertNotSame;

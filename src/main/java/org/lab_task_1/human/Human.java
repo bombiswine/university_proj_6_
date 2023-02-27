@@ -1,4 +1,4 @@
-package org.example.human;
+package org.lab_task_1.human;
 
 import java.time.LocalDate;
 import java.time.Period;

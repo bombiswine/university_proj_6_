@@ -1,4 +1,4 @@
-package org.example;
+package org.lab_task_1;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.example.CollectionsDemo.countStringStartsWith;
+import static org.lab_task_1.CollectionsDemo.countStringStartsWith;
 import static org.testng.Assert.assertEquals;
 
 public class CollectionsDemoTest {

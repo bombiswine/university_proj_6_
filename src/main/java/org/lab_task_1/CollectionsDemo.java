@@ -1,4 +1,4 @@
-package org.example;
+package org.lab_task_1;
 
 import java.util.List;
 
