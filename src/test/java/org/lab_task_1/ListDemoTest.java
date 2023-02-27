@@ -16,26 +16,9 @@ import static org.testng.AssertJUnit.assertNotSame;
 
 public class ListDemoTest {
     static class HumansTestData {
-
-        public final static Human LucyEarl = new Human(
-            new FullName("Lucy", "", "Earl"),
-            LocalDate.of(1998, 3, 12),
-            "Female",
-            "English",
-            175,
-            65
-        );
-        public final static Human LucyVirth = new Human(
-            new FullName("Lucy", "", "Virth"),
-            LocalDate.of(1998, 5, 10),
-            "Female",
-            "English",
-            175,
-            65
-        );
         public final static Human AlexandreMerson = new Human(
             new FullName("Alexandre", "Igorevich", "Meson"),
-            LocalDate.of(1998, 3, 12),
+            LocalDate.of(2002, 6, 24),
             "Male",
             "Russian",
             176,
@@ -49,43 +32,56 @@ public class ListDemoTest {
             155,
             70
         );
-
         public final static Human JulieVirth = new Human(
             new FullName("Julie", "", "Virth"),
-            LocalDate.of(1998, 3, 12),
+            LocalDate.of(2001, 3, 12),
             "Female",
             "Swiss",
             179,
             79
         );
-
-        public final static Human LucyBrown = new Human(
-            new FullName("Lucy", "", "Brown"),
-            LocalDate.of(1998, 3, 12),
-            "Female",
-            "English",
-            175,
-            65
-        );
         public final static Human CyrillVirth = new Human(
             new FullName("Cyrill", "", "Virth"),
-            LocalDate.of(1998, 3, 12),
+            LocalDate.of(1976, 10, 12),
             "Male",
             "Russian",
             180,
             90
         );
-
+        public final static Human LucyEarl = new Human(
+            new FullName("Lucy", "", "Earl"),
+            LocalDate.of(2000, 3, 12),
+            "Female",
+            "English",
+            181,
+            65
+        );
+        public final static Human LucyBrown = new Human(
+            new FullName("Lucy", "", "Brown"),
+            LocalDate.of(2000, 10, 12),
+            "Female",
+            "English",
+            169,
+            65
+        );
+        public final static Human LucyVirth = new Human(
+            new FullName("Lucy", "", "Virth"),
+            LocalDate.of(2000, 5, 10),
+            "Female",
+            "English",
+            171,
+            65
+        );
         public final static Human LucyGreen = new Human(
             new FullName("Lucy", "", "Green"),
-            LocalDate.of(1998, 3, 12),
+            LocalDate.of(2000, 11, 27),
             "Female",
             "English",
             175,
             65
         );
-    }
 
+    }
     @Test(dataProvider = "getNamesakesList_Data")
     public static void getNamesakesList_Test(
         List<Human> humans,
@@ -189,6 +185,36 @@ public class ListDemoTest {
             { emptyList, emptySet, emptyList },
             { listOfEmptySet, emptySet, listOfEmptySet },
             { listContainsSetsThatIntersectsWithSetA, emptySet, listContainsSetsThatIntersectsWithSetA },
+        };
+    }
+
+    @Test(dataProvider = "getSetOfOldestPeople_PositiveCase_Data")
+    public static <T extends Human> void getSetOfOldestPeople_PositiveCase_Test(
+        final List<T> people,
+        final Set<T> expectedOldestPeople
+    ) {
+        final Set<T> actualOldestPeople = getSetOfOldestPeople(people);
+        assertEquals(actualOldestPeople, expectedOldestPeople);
+    }
+
+    @DataProvider
+    public static Object[][] getSetOfOldestPeople_PositiveCase_Data() {
+        List<Human> listWithOneOldestPerson = List.of(LucyEarl, AlexandreMerson, CyrillVirth, LucyBrown);
+        List<Human> listWithOneOldestPersonAndNulls = Arrays.asList(LucyEarl, null, AlexandreMerson, CyrillVirth, null, LucyBrown);
+        Set<Human>  anOldestPerson = new TreeSet<>(List.of(CyrillVirth));
+
+        List<Human> listWithTwoOldestPeople = List.of(LucyEarl, OlgaMerson, AlexandreMerson, CyrillVirth, LucyBrown);
+        Set<Human>  twoOldestPeople = new TreeSet<>(List.of(OlgaMerson, CyrillVirth));
+
+        List<Human> listWithSameAgePeople = List.of(LucyBrown, LucyEarl, LucyVirth, LucyGreen);
+
+        return new Object[][] {
+            { listWithOneOldestPerson, anOldestPerson },
+            { listWithTwoOldestPeople, twoOldestPeople },
+            { listWithSameAgePeople, new TreeSet<>(listWithSameAgePeople) },
+            { new ArrayList<>(0), new TreeSet<>() },
+            { listWithOneOldestPersonAndNulls, anOldestPerson },
+            { Arrays.asList(null, null, null), new TreeSet<>() },
         };
     }
 }
