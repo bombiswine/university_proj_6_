@@ -112,4 +112,8 @@ public class FullName {
         );
     }
 
+    @Override
+    public String toString() {
+        return getFullName(FullNameFormats.FIRSTNAME_MIDDLENAME_SURNAME);
+    }
 }

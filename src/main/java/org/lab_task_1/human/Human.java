@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 
-public class Human {
+public class Human implements Comparable<Human> {
     protected FullName    fullName;
     protected LocalDate   birthDate;
     protected HumanGender gender;
@@ -140,7 +140,7 @@ public class Human {
             append("sex: %s\n").
             append("nationality: %s\n").
             append("height: %s\n").
-            append("weight: %s");
+            append("weight: %s\n");
 
         return String.format(
             humanInfoFormatString.toString(),
@@ -155,5 +155,10 @@ public class Human {
     public boolean isAdult() {
         final int ADULT_AGE = 18;
         return getAge() >= ADULT_AGE;
+    }
+
+    @Override
+    public int compareTo(final Human otherPerson) {
+        return Integer.compare(getAge(), otherPerson.getAge());
     }
 }
