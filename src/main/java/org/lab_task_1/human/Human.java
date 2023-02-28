@@ -133,7 +133,7 @@ public class Human implements Comparable<Human> {
 
     @Override
     public String toString() {
-        StringBuffer humanInfoFormatString = new StringBuffer();
+        StringBuilder humanInfoFormatString = new StringBuilder();
         humanInfoFormatString.
             append("full name: %s\n").
             append("date of birth: %s\n").
