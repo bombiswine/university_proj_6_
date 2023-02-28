@@ -94,4 +94,22 @@ public class DataForTesting {
     );
 
     public final static Student studentLucyGreen = new Student(personLucyGreen, "Phisics");
+
+    public final static Human personSmallGirl = new Human(
+        new FullName("Annet", "", "Beaumarchez"),
+        LocalDate.of(2013, 5, 24),
+        "Female",
+        "French",
+        156,
+        43
+    );
+
+    public final static Human personSmallBoy = new Human(
+        new FullName("Nicolas", "", "Beau"),
+        LocalDate.of(2008, 3, 11),
+        "Male",
+        "French",
+        148,
+        45
+    );
 }

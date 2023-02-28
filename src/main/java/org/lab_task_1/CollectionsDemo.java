@@ -49,11 +49,45 @@ public class CollectionsDemo {
         }
 
         Set<T> peopleWithIdentifiersFromGivenSet = new TreeSet<>();
-        for (Integer key : map.keySet()) {
+        for (int key : map.keySet()) {
             if (keys.contains(key)) {
                 peopleWithIdentifiersFromGivenSet.add(map.get(key));
             }
         }
+
         return peopleWithIdentifiersFromGivenSet;
+    }
+
+    public static <T extends Human> Set<Integer> getKeysOfAdultsInGivenMap(
+        final Map<Integer, T> map,
+        final Set<Integer>    keys
+    ) {
+        if (keys == null) {
+            throw new IllegalArgumentException(
+                "The null-ref passed to getKeysOfAdultsInGivenMap:\n" +
+                " Set<Integer> keys is null"
+            );
+        }
+        if (map == null) {
+            throw new IllegalArgumentException(
+                "The null-ref passed to getKeysOfAdultsInGivenMap:\n " +
+                "Map<Integer, T> map is null"
+            );
+        }
+        if (map.containsValue(null)) {
+            throw new IllegalArgumentException(
+                "The null-ref passed to getKeysOfAdultsInGivenMap:\n" +
+                "Map<Integer, T> map contains null as its value"
+            );
+        }
+
+        Set<Integer> adultsWithKeysFromGivenSet = new TreeSet<>();
+        for (int key : map.keySet()) {
+            if (keys.contains(key) && map.get(key).isAdult()) {
+                adultsWithKeysFromGivenSet.add(key);
+            }
+        }
+
+        return adultsWithKeysFromGivenSet;
     }
 }
