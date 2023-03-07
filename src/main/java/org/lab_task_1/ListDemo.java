@@ -77,12 +77,14 @@ public class ListDemo {
         peopleListCopy.removeAll(Collections.singleton(null));
 
         if (!peopleListCopy.isEmpty()) {
-            Collections.sort(peopleListCopy);
-            final int maxAge = peopleListCopy.get(peopleListCopy.size() - 1).getAge();
+            peopleListCopy.sort((h1, h2) -> -h1.compareTo(h2));
+            final int maxAge = peopleListCopy.get(0).getAge();
 
-            for (int i = peopleListCopy.size() - 1; i >= 0 ; i--) {
-                if (peopleListCopy.get(i).getAge() == maxAge) {
-                    oldestPeople.add(peopleListCopy.get(i));
+            for (T person : peopleListCopy) {
+                if (person.getAge() == maxAge) {
+                    oldestPeople.add(person);
+                } else {
+                    break;
                 }
             }
         }
