@@ -31,7 +31,7 @@ public class DataForTesting {
 
     public final static Human personJulieVirth = new Human(
         new FullName("Julie", "", "Virth"),
-        LocalDate.of(2001, 3, 12),
+        LocalDate.of(2002, 6, 12),
         "Female",
         "Swiss",
         179,
@@ -53,7 +53,7 @@ public class DataForTesting {
 
     public final static Human personLucyEarl = new Human(
         new FullName("Lucy", "", "Earl"),
-        LocalDate.of(2000, 3, 12),
+        LocalDate.of(2000, 5, 12),
         "Female",
         "English",
         181,
@@ -64,7 +64,7 @@ public class DataForTesting {
 
     public final static Human personLucyBrown = new Human(
         new FullName("Lucy", "", "Brown"),
-        LocalDate.of(2000, 10, 12),
+        LocalDate.of(2000, 5, 12),
         "Female",
         "English",
         169,
@@ -75,7 +75,7 @@ public class DataForTesting {
 
     public final static Human personLucyVirth = new Human(
         new FullName("Lucy", "", "Virth"),
-        LocalDate.of(2000, 5, 10),
+        LocalDate.of(2000, 5, 12),
         "Female",
         "English",
         171,
@@ -86,7 +86,7 @@ public class DataForTesting {
 
     public final static Human personLucyGreen = new Human(
         new FullName("Lucy", "", "Green"),
-        LocalDate.of(2000, 11, 27),
+        LocalDate.of(2000, 5, 12),
         "Female",
         "English",
         175,
@@ -97,7 +97,7 @@ public class DataForTesting {
 
     public final static Human personSmallGirl = new Human(
         new FullName("Annet", "", "Beaumarchez"),
-        LocalDate.of(2013, 5, 24),
+        LocalDate.of(2013, 1, 11),
         "Female",
         "French",
         156,
@@ -106,7 +106,7 @@ public class DataForTesting {
 
     public final static Human personSmallBoy = new Human(
         new FullName("Nicolas", "", "Beau"),
-        LocalDate.of(2008, 3, 11),
+        LocalDate.of(2013, 1, 11),
         "Male",
         "French",
         148,

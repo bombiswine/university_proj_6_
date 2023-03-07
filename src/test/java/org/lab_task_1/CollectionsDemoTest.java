@@ -53,50 +53,60 @@ public class CollectionsDemoTest {
     @DataProvider
     public static Object[][] getPeopleWithIdentifiersFromGivenSet_PositiveCase_Data() {
         Set<Integer> allKeysSet = new TreeSet<>(List.of(0, 1, 2, 3, 4, 5, 6, 7));
-        List<Human>  allPeople = List.of(
-            personLucyEarl,
-            personAlexandreMerson,
-            personCyrillVirth,
-            personLucyBrown,
-            personOlgaMerson,
-            personJulieVirth,
-            personLucyVirth,
-            personLucyGreen
-        );
-
         Set<Integer> evenKeysSet = new TreeSet<>(List.of(0, 2, 4, 6));
-        List<Human>  peopleWithEvenKeys = List.of(
+        Set<Integer> randomKeysSet = new TreeSet<>(List.of(0, 12, 1, 7, -5, 32, -13));
+        Set<Integer> notPresentedKeysSet = new TreeSet<>(List.of(12, -21, 17, -5, 32, -13));
+
+        Set<Human>  peopleWithEvenKeys = Set.of(
             personLucyEarl,
             personCyrillVirth,
             personOlgaMerson,
             personLucyVirth
         );
-
-        Set<Integer> randomKeysSet = new TreeSet<>(List.of(0, 12, 1, 7, -5, 32, -13));
-        List<Human>  peopleWithKeysFromRandomKeysSet = List.of(
+        Set<Human>  peopleWithKeysFromRandomKeysSet = Set.of(
             personLucyEarl,
             personAlexandreMerson,
             personLucyGreen
         );
+        Set<Human> nonNullPeopleSet = Set.of(
+            personAlexandreMerson,
+            personLucyBrown,
+            personLucyGreen,
+            personOlgaMerson
+        );
 
-        Set<Integer> notPresentedKeysSet = new TreeSet<>(List.of(12, -21, 17, -5, 32, -13));
+        Map<Integer, Human> mapWithNulls = new HashMap<>();
+        mapWithNulls.put(0, personLucyBrown);
+        mapWithNulls.put(1, personAlexandreMerson);
+        mapWithNulls.put(2, null);
+        mapWithNulls.put(3, personLucyBrown);
+        mapWithNulls.put(4, personLucyGreen);
+        mapWithNulls.put(5, null);
+        mapWithNulls.put(6, personOlgaMerson);
+        mapWithNulls.put(7, null);
 
-        Map<Integer, Human> mapWithoutNull = new TreeMap<>();
-        for (int key : allKeysSet) {
-            mapWithoutNull.put(key, allPeople.get(key));
-        }
+        Map<Integer, Human> mapWithoutNull = Map.of(
+            0, personLucyEarl,
+            1, personAlexandreMerson,
+            2, personCyrillVirth,
+            3, personLucyBrown,
+            4, personOlgaMerson,
+            5, personJulieVirth,
+            6, personLucyVirth,
+            7, personLucyGreen
+        );
 
         return new Object[][] {
-            { mapWithoutNull, allKeysSet, new TreeSet<>(mapWithoutNull.values()) },
-            { mapWithoutNull, evenKeysSet, new TreeSet<>(peopleWithEvenKeys) },
-            { mapWithoutNull, randomKeysSet, new TreeSet<>(peopleWithKeysFromRandomKeysSet) },
-            { mapWithoutNull, notPresentedKeysSet, new TreeSet<>() },
-            { mapWithoutNull, new TreeSet<>(), new TreeSet<>() },
-            { new TreeMap<>(), allKeysSet, new TreeSet<>() },
-            { new TreeMap<>(), evenKeysSet, new TreeSet<>() },
-            { new TreeMap<>(), randomKeysSet, new TreeSet<>() },
-            { new TreeMap<>(), new TreeSet<>(), new TreeSet<>() },
-
+            { mapWithoutNull, allKeysSet, new HashSet<>(mapWithoutNull.values()) },
+            { mapWithoutNull, evenKeysSet, peopleWithEvenKeys },
+            { mapWithoutNull, randomKeysSet, peopleWithKeysFromRandomKeysSet },
+            { mapWithoutNull, notPresentedKeysSet, new HashSet<>() },
+            { mapWithoutNull, new HashSet<>(), new HashSet<>() },
+            { new HashMap<>(), allKeysSet, new HashSet<>() },
+            { new HashMap<>(), evenKeysSet, new HashSet<>() },
+            { new HashMap<>(), randomKeysSet, new HashSet<>() },
+            { new HashMap<>(), new HashSet<>(), new HashSet<>() },
+            { mapWithNulls, allKeysSet, nonNullPeopleSet },
         };
     }
 
@@ -113,35 +123,19 @@ public class CollectionsDemoTest {
 
     @DataProvider
     public static Object[][] getPeopleWithIdentifiersFromGivenSet_ThrowsIllegalArgumentException_Data() {
-        Set<Integer> allKeysSet = new TreeSet<>(List.of(0, 1, 2, 3, 4, 5, 6, 7));
-        List<Human>  listWithNulls = Arrays.asList(
-            personLucyEarl,
-            null,
-            personCyrillVirth,
-            null,
-            personLucyBrown,
-            personOlgaMerson,
-            null,
-            personLucyGreen
+        Map<Integer, Human> mapWithoutNull = Map.of(
+            0, personLucyEarl,
+            1, personAlexandreMerson,
+            2, personCyrillVirth,
+            3, personLucyBrown,
+            4, personOlgaMerson,
+            5, personJulieVirth,
+            6, personLucyVirth,
+            7, personLucyGreen
         );
 
-        Map<Integer, Human> mapWithNulls = new TreeMap<>();
-        for (int key : allKeysSet) {
-            mapWithNulls.put(key, listWithNulls.get(key));
-        }
-
-        Map<Integer, Human> mapWithoutNull = new TreeMap<>();
-        for (int key : allKeysSet) {
-            if (listWithNulls.get(key) != null) {
-                mapWithoutNull.put(key, listWithNulls.get(key));
-            } else {
-                mapWithoutNull.put(key, personLucyEarl);
-            }
-        }
-
         return new Object[][] {
-            { mapWithNulls, allKeysSet },
-            { null, allKeysSet },
+            { null, mapWithoutNull.keySet() },
             { mapWithoutNull, null },
         };
     }
@@ -159,61 +153,58 @@ public class CollectionsDemoTest {
 
     @DataProvider
     public static Object[][] getKeysOfAdultsInGivenMap_PositiveCase_Data() {
-        Set<Integer> allKeysSet = new TreeSet<>(List.of(0, 1, 2, 3));
-        Set<Integer> randomKeysSet = new TreeSet<>(List.of(0, 12, 1, 7, -5, 32, -13));
-        Set<Integer> notPresentedKeysSet = new TreeSet<>(List.of(12, -21, 17, -5, 32, -13));
+        Set<Integer> allKeysSet          = Set.of(0, 1, 2, 3);
+        Set<Integer> randomKeysSet       = Set.of(0, 12, 1, 7, -5, 32, -13);
+        Set<Integer> notPresentedKeysSet = Set.of(12, -21, 17, -5, 32, -13);
 
-        List<Human>  adultsAndChildren = List.of(
-            personLucyEarl,
-            personSmallBoy,
-            personAlexandreMerson,
-            personSmallGirl
+        Map<Integer, Human> mapWithAdultsAndChildren = Map.of(
+            0, personLucyEarl,
+            1, personSmallBoy,
+            2, personAlexandreMerson,
+            3, personSmallGirl
         );
-        List<Human>  adultsOnly = List.of(
-            personLucyEarl,
-            personAlexandreMerson,
-            personCyrillVirth,
-            personLucyGreen
+        Map<Integer, Human> mapWithAdultsOnly = Map.of(
+            0, personLucyEarl,
+            1, personAlexandreMerson,
+            2, personCyrillVirth,
+            3, personLucyGreen
         );
-        List<Human>  childrenOnly = List.of(
-            personSmallBoy,
-            personSmallGirl,
-            personSmallBoy,
-            personSmallGirl
+        Map<Integer, Human> mapWithChildrenOnly = Map.of(
+            0, personSmallBoy,
+            1, personSmallGirl,
+            2, personSmallBoy,
+            3, personSmallGirl
         );
 
-
-        Map<Integer, Human> mapWithAdultsAndChildren = new TreeMap<>();
-        for (int key : allKeysSet) {
-            mapWithAdultsAndChildren.put(key, adultsAndChildren.get(key));
-        }
-        Map<Integer, Human> mapWithAdultsOnly = new TreeMap<>();
-        for (int key : allKeysSet) {
-            mapWithAdultsOnly.put(key, adultsOnly.get(key));
-        }
-        Map<Integer, Human> mapWithChildrenOnly = new TreeMap<>();
-        for (int key : allKeysSet) {
-            mapWithChildrenOnly.put(key, childrenOnly.get(key));
-        }
+        Map<Integer, Human> mapWithNulls = new HashMap<>();
+        mapWithNulls.put(0, personLucyEarl);
+        mapWithNulls.put(1, personSmallBoy);
+        mapWithNulls.put(2, null);
+        mapWithNulls.put(3, personCyrillVirth);
+        mapWithNulls.put(4, personLucyEarl);
+        mapWithNulls.put(5, personAlexandreMerson);
+        mapWithNulls.put(6, null);
+        mapWithNulls.put(7, personSmallGirl);
 
         return new Object[][] {
-            { mapWithAdultsAndChildren, allKeysSet, new TreeSet<>(List.of(0, 2)) },
-            { mapWithAdultsAndChildren, randomKeysSet, new TreeSet<>(List.of(0)) },
-            { mapWithAdultsAndChildren, notPresentedKeysSet, new TreeSet<>() },
-            { mapWithAdultsAndChildren, new TreeSet<>(), new TreeSet<>() },
+            { mapWithAdultsAndChildren, allKeysSet, Set.of(0, 2) },
+            { mapWithAdultsAndChildren, randomKeysSet, Set.of(0) },
+            { mapWithAdultsAndChildren, notPresentedKeysSet, Set.of() },
+            { mapWithAdultsAndChildren, Set.of(), Set.of() },
 
             { mapWithAdultsOnly, allKeysSet, allKeysSet },
-            { mapWithAdultsOnly, randomKeysSet, new TreeSet<>(List.of(0, 1)) },
-            { mapWithAdultsOnly, notPresentedKeysSet, new TreeSet<>() },
-            { mapWithAdultsOnly, new TreeSet<>(), new TreeSet<>() },
+            { mapWithAdultsOnly, randomKeysSet, Set.of(0, 1) },
+            { mapWithAdultsOnly, notPresentedKeysSet, Set.of() },
+            { mapWithAdultsOnly, Set.of(), Set.of() },
 
-            { mapWithChildrenOnly, allKeysSet,new TreeSet<>() },
-            { mapWithChildrenOnly, randomKeysSet, new TreeSet<>() },
-            { mapWithChildrenOnly, notPresentedKeysSet, new TreeSet<>() },
-            { mapWithChildrenOnly, new TreeSet<>(), new TreeSet<>() },
+            { mapWithChildrenOnly, allKeysSet, Set.of() },
+            { mapWithChildrenOnly, randomKeysSet, Set.of() },
+            { mapWithChildrenOnly, notPresentedKeysSet, Set.of() },
+            { mapWithChildrenOnly, Set.of(), Set.of() },
 
-            { new TreeMap<>(), allKeysSet, new TreeSet<>() },
-            { new TreeMap<>(), new TreeSet<>(), new TreeSet<>() },
+            { Map.of(), allKeysSet, Set.of() },
+            { Map.of(), Set.of(), Set.of() },
+            { mapWithNulls, allKeysSet, Set.of(0, 3) },
         };
     }
 
@@ -230,37 +221,133 @@ public class CollectionsDemoTest {
 
     @DataProvider
     public static Object[][] getKeysOfAdultsInGivenMap_ThrowsIllegalArgumentException_Data() {
-        Set<Integer> allKeysSet = new TreeSet<>(List.of(0, 1, 2, 3, 4, 5, 6, 7));
-        List<Human>  listWithNulls = Arrays.asList(
-            personLucyEarl,
-            personSmallBoy,
-            null,
-            personCyrillVirth,
-            personLucyEarl,
-            personAlexandreMerson,
-            null,
-            personSmallGirl
+        Map<Integer, Human> mapWithoutNull = Map.of(
+            0, personLucyEarl,
+            1, personSmallBoy,
+            2, personAlexandreMerson,
+            3, personSmallGirl
         );
 
-        Map<Integer, Human> mapWithNulls = new TreeMap<>();
-        for (int key : allKeysSet) {
-            mapWithNulls.put(key, listWithNulls.get(key));
-        }
+        return new Object[][] {
+            { null, mapWithoutNull.keySet() },
+            { mapWithoutNull, null },
+        };
+    }
 
-        Map<Integer, Human> mapWithoutNull = new TreeMap<>();
-        for (int key : allKeysSet) {
-            if (listWithNulls.get(key) != null) {
-                mapWithoutNull.put(key, listWithNulls.get(key));
-            } else {
-                // just to have a map of 8 elements
-                mapWithoutNull.put(key, personLucyEarl);
-            }
-        }
+    @Test(dataProvider = "getMapKeyToAge_PositiveCase_Data")
+    public static <T extends Human> void getMapKeyToAge_PositiveCase_Test(
+        final Map<Integer, T> givenMap,
+        final Map<Integer, Integer> expectedMap
+    ) {
+        final Map<Integer, Integer> actualMap = getMapKeyToAge(givenMap);
+        assertEquals(actualMap, expectedMap);
+    }
+
+    @DataProvider
+    public static Object[][] getMapKeyToAge_PositiveCase_Data() {
+        Map<Integer, Human> mapWithoutNull = Map.of(
+            0, personLucyEarl,
+            1, personSmallBoy,
+            2, personAlexandreMerson,
+            3, personSmallGirl
+        );
+        Map<Integer, Integer> expectedMap1 = Map.of(
+            0, personLucyEarl.getAge(),
+            1, personSmallBoy.getAge(),
+            2, personAlexandreMerson.getAge(),
+            3, personSmallGirl.getAge()
+        );
+
+        Map<Integer, Human> mapWithNulls = new HashMap<>();
+        mapWithNulls.put(15, personOlgaMerson);
+        mapWithNulls.put(0, personLucyEarl);
+        mapWithNulls.put(1, personSmallBoy);
+        mapWithNulls.put(2, null);
+        mapWithNulls.put(3, personCyrillVirth);
+        mapWithNulls.put(4, personLucyEarl);
+        mapWithNulls.put(5, personAlexandreMerson);
+        mapWithNulls.put(6, null);
+        mapWithNulls.put(7, personSmallGirl);
+
+        Map<Integer, Integer> expectedMap2 = Map.of(
+            15, personOlgaMerson.getAge(),
+            0, personLucyEarl.getAge(),
+            1, personSmallBoy.getAge(),
+            3, personCyrillVirth.getAge(),
+            4, personLucyEarl.getAge(),
+            5, personAlexandreMerson.getAge(),
+            7, personSmallGirl.getAge()
+        );
+
+        Map<Integer, Human> nullsOmlyMap = new HashMap<>();
+        nullsOmlyMap.put(7, null);
+        nullsOmlyMap.put(17, null);
+        nullsOmlyMap.put(-77, null);
 
         return new Object[][] {
-            { mapWithNulls, allKeysSet },
-            { null, allKeysSet },
-            { mapWithoutNull, null },
+            { mapWithoutNull, expectedMap1 },
+            { mapWithNulls, expectedMap2 },
+            { Map.of(), Map.of() },
+            { nullsOmlyMap, Map.of() }
+        };
+    }
+
+    @Test(
+        dataProvider = "getMapKeyToAge_ThrowsIllegalArgumentException_Data",
+        expectedExceptions = IllegalArgumentException.class
+    )
+    public static <T extends Human> void getMapKeyToAge_ThrowsIllegalArgumentException_Test(
+        final Map<Integer, T> map
+    ) {
+        getMapKeyToAge(map);
+    }
+
+    @DataProvider
+    public static Object[][] getMapKeyToAge_ThrowsIllegalArgumentException_Data() {
+        return new Object[][] { { null } };
+    }
+
+    // test for task 6.10
+    @Test(dataProvider = "getMapAgeToListOfPeopleOfThisAge_PositiveCase_Data")
+    public static <T extends Human> void getMapAgeToListOfPeopleOfThisAge_PositiveCase_Test(
+        final Set<T> givenPeopleSet,
+        final Map<Integer, List<T>> expectedMap
+    ) {
+        final Map<Integer, List<T>> actualMap = getMapAgeToListOfPeopleOfThisAge(givenPeopleSet);
+        assertEquals(actualMap.keySet(), expectedMap.keySet());
+        for (int key : actualMap.keySet()) {
+            assertEquals(Set.of(actualMap.get(key)), Set.of(expectedMap.get(key)));
+        }
+    }
+
+    @DataProvider
+    public static Object[][] getMapAgeToListOfPeopleOfThisAge_PositiveCase_Data() {
+        final Set<Human> differentAgePeople = Set.of(
+            personSmallBoy,
+            personSmallGirl,
+            personLucyEarl,
+            personLucyVirth,
+            personLucyGreen,
+            personLucyBrown,
+            personJulieVirth,
+            personAlexandreMerson,
+            personCyrillVirth,
+            personOlgaMerson
+        );
+        final List<Human> peopleAge10 = List.of(personSmallBoy, personSmallGirl);
+        final List<Human> peopleAge20 = List.of(personJulieVirth, personAlexandreMerson);
+        final List<Human> peopleAge22 = List.of(personLucyEarl, personLucyVirth, personLucyGreen, personLucyBrown);
+        final List<Human> peopleAge46 = List.of(personCyrillVirth, personOlgaMerson);
+
+        final Map<Integer, List<Human>> map = Map.of(
+            personSmallBoy.getAge(), peopleAge10,
+            personJulieVirth.getAge(), peopleAge20,
+            personLucyEarl.getAge(), peopleAge22,
+            personOlgaMerson.getAge(), peopleAge46
+        );
+
+        return new Object[][] {
+            { differentAgePeople, map },
         };
     }
 }
