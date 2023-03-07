@@ -139,12 +139,13 @@ public class Human implements Comparable<Human> {
             append("date of birth: %s\n").
             append("sex: %s\n").
             append("nationality: %s\n").
-            append("height: %s\n").
-            append("weight: %s\n");
+            append("height: %d\n").
+            append("weight: %d\n").
+            append("age: %d\n");
 
         return String.format(
             humanInfoFormatString.toString(),
-            fullName, birthDate, gender, nationality, height, weight
+            fullName, birthDate, gender, nationality, height, weight, getAge()
         );
     }
 
@@ -152,8 +153,9 @@ public class Human implements Comparable<Human> {
         return Period.between(birthDate, LocalDate.now()).getYears();
     }
 
+    static final int ADULT_AGE = 18;
+
     public boolean isAdult() {
-        final int ADULT_AGE = 18;
         return getAge() >= ADULT_AGE;
     }
 
