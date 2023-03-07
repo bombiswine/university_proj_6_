@@ -36,6 +36,21 @@ public class Student extends Human {
         faculty = otherStudent.faculty;
     }
 
+    public Student(final Human person, final String faculty) {
+        super(person);
+        if (faculty == null) {
+            throw new IllegalArgumentException(
+                "Null-ref passed to Student constructor as faculty-name"
+            );
+        }
+        if (faculty.isEmpty()) {
+            throw new IllegalArgumentException(
+                "The empty string passed to Student constructor as faculty-name"
+            );
+        }
+        this.faculty = faculty;
+    }
+
     public String getFaculty() {
         return faculty;
     }

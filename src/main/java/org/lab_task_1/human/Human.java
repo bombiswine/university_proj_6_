@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 
-public class Human {
+public class Human implements Comparable<Human> {
     protected FullName    fullName;
     protected LocalDate   birthDate;
     protected HumanGender gender;
@@ -133,18 +133,19 @@ public class Human {
 
     @Override
     public String toString() {
-        StringBuffer humanInfoFormatString = new StringBuffer();
+        StringBuilder humanInfoFormatString = new StringBuilder();
         humanInfoFormatString.
             append("full name: %s\n").
             append("date of birth: %s\n").
             append("sex: %s\n").
             append("nationality: %s\n").
-            append("height: %s\n").
-            append("weight: %s");
+            append("height: %d\n").
+            append("weight: %d\n").
+            append("age: %d\n");
 
         return String.format(
             humanInfoFormatString.toString(),
-            fullName, birthDate, gender, nationality, height, weight
+            fullName, birthDate, gender, nationality, height, weight, getAge()
         );
     }
 
@@ -152,8 +153,14 @@ public class Human {
         return Period.between(birthDate, LocalDate.now()).getYears();
     }
 
+    static final int ADULT_AGE = 18;
+
     public boolean isAdult() {
-        final int ADULT_AGE = 18;
         return getAge() >= ADULT_AGE;
+    }
+
+    @Override
+    public int compareTo(final Human otherPerson) {
+        return Integer.compare(getAge(), otherPerson.getAge());
     }
 }
