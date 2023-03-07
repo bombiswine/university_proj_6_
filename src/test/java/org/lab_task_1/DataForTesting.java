@@ -19,7 +19,7 @@ public class DataForTesting {
     public final static Student studentAlexandreMerson = new Student(personAlexandreMerson, "IMIT");
 
     public final static Human personOlgaMerson = new Human(
-        new FullName("Olga", "Igorevich", "Meson"),
+        new FullName("Olga", "Vladimirovna", "Merson"),
         LocalDate.of(1976, 12, 6),
         "Female",
         "Russian",
