@@ -347,9 +347,32 @@ public class CollectionsDemoTest {
             personOlgaMerson.getAge(), peopleAge46
         );
 
+        final Set<Human> sameAgePeople = Set.of(
+            personLucyEarl,
+            personLucyVirth,
+            personLucyGreen,
+            personLucyBrown
+        );
+
         return new Object[][] {
             { differentAgePeople, map },
+            { sameAgePeople, Map.of(personLucyEarl.getAge(), List.of(personLucyEarl, personLucyVirth, personLucyGreen, personLucyBrown)) },
             { Set.of(), Map.of() },
         };
+    }
+
+    @Test(
+        dataProvider = "getMapAgeToListOfPeopleOfThisAge_ThrowsIllegalArgumentException_Data",
+        expectedExceptions = IllegalArgumentException.class
+    )
+    public static <T extends Human> void getMapAgeToListOfPeopleOfThisAge_ThrowsIllegalArgumentException_Test(
+        final Set<T> givenPeopleSet
+    ) {
+        getMapAgeToListOfPeopleOfThisAge(givenPeopleSet);
+    }
+
+    @DataProvider
+    public static Object[][] getMapAgeToListOfPeopleOfThisAge_ThrowsIllegalArgumentException_Data() {
+        return new Object[][] { { null } };
     }
 }
