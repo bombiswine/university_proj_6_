@@ -10,6 +10,7 @@ import static org.lab_task_1.CollectionsDemo.*;
 import static org.lab_task_1.DataForTesting.*;
 import static org.lab_task_1.DataForTesting.personLucyBrown;
 import static org.testng.Assert.assertEquals;
+import static org.testng.AssertJUnit.assertTrue;
 
 public class CollectionsDemoTest {
     @Test(dataProvider = "countStringStartsWith_Data")
@@ -316,7 +317,7 @@ public class CollectionsDemoTest {
         final Map<Integer, List<T>> actualMap = getMapAgeToListOfPeopleOfThisAge(givenPeopleSet);
         assertEquals(actualMap.keySet(), expectedMap.keySet());
         for (int key : actualMap.keySet()) {
-            assertEquals(Set.of(actualMap.get(key)), Set.of(expectedMap.get(key)));
+            assertTrue(actualMap.get(key).containsAll(expectedMap.get(key)) && expectedMap.get(key).containsAll(actualMap.get(key)));
         }
     }
 
@@ -348,6 +349,7 @@ public class CollectionsDemoTest {
 
         return new Object[][] {
             { differentAgePeople, map },
+            { Set.of(), Map.of() },
         };
     }
 }
