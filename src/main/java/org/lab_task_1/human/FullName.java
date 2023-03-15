@@ -16,8 +16,8 @@ public class FullName {
         FullNameFormats(final String fullNameFormat) {
             this.fullNameFormat = fullNameFormat;
         }
-    }
 
+    }
     public FullName(
         final String firstName,
         final String middleName,
