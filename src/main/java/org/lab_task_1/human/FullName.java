@@ -70,7 +70,7 @@ public class FullName {
     }
 
     public String getFullName(final FullNameFormats format) {
-        StringBuffer fullName = new StringBuffer();
+        StringBuilder fullName = new StringBuilder();
         switch (format) {
             case SURNAME_FIRSTNAME_MIDDLENAME:
                 fullName.append(surname).
