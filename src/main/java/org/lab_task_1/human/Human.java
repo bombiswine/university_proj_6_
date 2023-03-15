@@ -82,6 +82,10 @@ public class Human implements Comparable<Human> {
         return fullName.getFirstName();
     }
 
+    public String getMiddleName() {
+        return fullName.getMiddleName();
+    }
+
     public String getSurname() {
         return fullName.getSurname();
     }
