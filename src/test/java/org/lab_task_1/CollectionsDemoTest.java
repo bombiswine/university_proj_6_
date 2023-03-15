@@ -375,4 +375,53 @@ public class CollectionsDemoTest {
     public static Object[][] getMapAgeToListOfPeopleOfThisAge_ThrowsIllegalArgumentException_Data() {
         return new Object[][] { { null } };
     }
+
+    @Test(dataProvider = "getSortedByFullNameList_PositiveCase_Data")
+    public static <T extends Human> void getSortedByFullNameList_PositiveCase_Test(
+        final Set<T> givenPeopleSet,
+        final List<T> sortedByFullNamePeopleList
+    ) {
+        final List<T> actualPeopleList = getSortedByFullNameList(givenPeopleSet);
+        assertEquals(actualPeopleList, sortedByFullNamePeopleList);
+    }
+
+    @DataProvider
+    public static Object[][] getSortedByFullNameList_PositiveCase_Data() {
+        final Set<Human> givenHumansSet = Set.of(
+            personLucyBrown,
+            personLucyVirth,
+            personAlexandreMerson,
+            personOlgaMerson,
+            personLucyEarl
+        );
+        final List<Human> expectedSortedHumansList = List.of(
+            personLucyBrown,
+            personLucyEarl,
+            personAlexandreMerson,
+            personOlgaMerson,
+            personLucyVirth
+        );
+
+        final Set<Human> givenStudentsSet = Set.of(
+            studentLucyBrown,
+            studentLucyVirth,
+            studentAlexandreMerson,
+            studentOlgaMerson,
+            studentLucyEarl
+        );
+        final List<Human> expectedSortedStudentsList = List.of(
+            studentLucyBrown,
+            studentLucyEarl,
+            studentAlexandreMerson,
+            studentOlgaMerson,
+            studentLucyVirth
+        );
+
+        return new Object[][] {
+            { givenHumansSet, expectedSortedHumansList },
+            { givenStudentsSet, expectedSortedStudentsList },
+            { Set.of(), List.of() },
+            { Set.of(studentAlexandreMerson), List.of(studentAlexandreMerson) },
+        };
+    }
 }
