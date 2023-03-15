@@ -121,4 +121,18 @@ public class CollectionsDemo {
         return ageToPeopleMap;
     }
 
+    // task 6.6
+    public static <T extends Human> List<T> getSortedByFullNameList(
+        final Set<T> people
+    ) {
+        List<T> sortedList = new LinkedList<>(people);
+        sortedList.sort(
+            Comparator.comparing(Human::getSurname).
+            thenComparing(Human::getName).
+            thenComparing(Human::getMiddleName)
+        );
+
+        return sortedList;
+    }
+
 }
