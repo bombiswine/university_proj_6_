@@ -9,16 +9,12 @@ public class Human implements Comparable<Human> {
     protected LocalDate   birthDate;
     protected HumanGender gender;
     protected String      nationality;
-    protected int         height;
-    protected int         weight;
 
     public Human(
         final FullName  fullName,
         final LocalDate birthDate,
         final String    gender,
-        final String    nationality,
-        final int       height,
-        final int       weight
+        final String    nationality
     ) {
         if (fullName == null) {
             throw new IllegalArgumentException(
@@ -40,22 +36,10 @@ public class Human implements Comparable<Human> {
                 "The null passed into Human's constructor as nationality argument"
             );
         }
-        if (height <= 0) {
-            throw new IllegalArgumentException(
-                "A negative height value passed into Human's constructor"
-            );
-        }
-        if (weight <= 0) {
-            throw new IllegalArgumentException(
-                "A negative weight value passed into Human's constructor"
-            );
-        }
 
         this.fullName    = fullName;
         this.birthDate   = birthDate;
         this.gender      = HumanGender.getGenderByValue(gender);
-        this.height      = height;
-        this.weight      = weight;
         this.nationality = nationality;
     }
 
@@ -69,8 +53,6 @@ public class Human implements Comparable<Human> {
         fullName    = new FullName(person.getFullName());
         birthDate   = person.getBirthDate();
         gender      = person.getGender();
-        height      = person.getHeight();
-        weight      = person.getWeight();
         nationality = person.getNationality();
     }
 
@@ -102,14 +84,6 @@ public class Human implements Comparable<Human> {
         return nationality;
     }
 
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWeight() {
-        return weight;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -119,19 +93,19 @@ public class Human implements Comparable<Human> {
             return false;
         }
 
-        return getHeight() == human.getHeight()
-                   && getWeight() == human.getWeight()
-                   && getFullName().equals(human.getFullName())
-                   && getBirthDate().equals(human.getBirthDate())
-                   && getGender() == human.getGender()
-                   && getNationality().equals(human.getNationality());
+        return getFullName().equals(human.getFullName())
+               && getBirthDate().equals(human.getBirthDate())
+               && getGender() == human.getGender()
+               && getNationality().equals(human.getNationality());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-            getFullName(), getBirthDate(), getGender(),
-            getNationality(), getHeight(), getWeight()
+            getFullName(),
+            getBirthDate(),
+            getGender(),
+            getNationality()
         );
     }
 
@@ -143,13 +117,11 @@ public class Human implements Comparable<Human> {
             append("date of birth: %s\n").
             append("sex: %s\n").
             append("nationality: %s\n").
-            append("height: %d\n").
-            append("weight: %d\n").
             append("age: %d\n");
 
         return String.format(
             humanInfoFormatString.toString(),
-            fullName, birthDate, gender, nationality, height, weight, getAge()
+            fullName, birthDate, gender, nationality, getAge()
         );
     }
 
