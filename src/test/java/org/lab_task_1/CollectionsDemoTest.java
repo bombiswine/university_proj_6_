@@ -8,7 +8,6 @@ import java.util.*;
 
 import static org.lab_task_1.CollectionsDemo.*;
 import static org.lab_task_1.DataForTesting.*;
-import static org.lab_task_1.DataForTesting.personLucyBrown;
 import static org.testng.Assert.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -160,9 +159,9 @@ public class CollectionsDemoTest {
 
         Map<Integer, Human> mapWithAdultsAndChildren = Map.of(
             0, personLucyEarl,
-            1, personSmallBoy,
+            1, personNicolasBeau,
             2, personAlexandreMerson,
-            3, personSmallGirl
+            3, personAnnetBeaumarchez
         );
         Map<Integer, Human> mapWithAdultsOnly = Map.of(
             0, personLucyEarl,
@@ -171,21 +170,21 @@ public class CollectionsDemoTest {
             3, personLucyGreen
         );
         Map<Integer, Human> mapWithChildrenOnly = Map.of(
-            0, personSmallBoy,
-            1, personSmallGirl,
-            2, personSmallBoy,
-            3, personSmallGirl
+            0, personNicolasBeau,
+            1, personAnnetBeaumarchez,
+            2, personNicolasBeau,
+            3, personAnnetBeaumarchez
         );
 
         Map<Integer, Human> mapWithNulls = new HashMap<>();
         mapWithNulls.put(0, personLucyEarl);
-        mapWithNulls.put(1, personSmallBoy);
+        mapWithNulls.put(1, personNicolasBeau);
         mapWithNulls.put(2, null);
         mapWithNulls.put(3, personCyrillVirth);
         mapWithNulls.put(4, personLucyEarl);
         mapWithNulls.put(5, personAlexandreMerson);
         mapWithNulls.put(6, null);
-        mapWithNulls.put(7, personSmallGirl);
+        mapWithNulls.put(7, personAnnetBeaumarchez);
 
         return new Object[][] {
             { mapWithAdultsAndChildren, allKeysSet, Set.of(0, 2) },
@@ -224,9 +223,9 @@ public class CollectionsDemoTest {
     public static Object[][] getKeysOfAdultsInGivenMap_ThrowsIllegalArgumentException_Data() {
         Map<Integer, Human> mapWithoutNull = Map.of(
             0, personLucyEarl,
-            1, personSmallBoy,
+            1, personNicolasBeau,
             2, personAlexandreMerson,
-            3, personSmallGirl
+            3, personAnnetBeaumarchez
         );
 
         return new Object[][] {
@@ -248,36 +247,36 @@ public class CollectionsDemoTest {
     public static Object[][] getMapKeyToAge_PositiveCase_Data() {
         Map<Integer, Human> mapWithoutNull = Map.of(
             0, personLucyEarl,
-            1, personSmallBoy,
+            1, personNicolasBeau,
             2, personAlexandreMerson,
-            3, personSmallGirl
+            3, personAnnetBeaumarchez
         );
         Map<Integer, Integer> expectedMap1 = Map.of(
             0, personLucyEarl.getAge(),
-            1, personSmallBoy.getAge(),
+            1, personNicolasBeau.getAge(),
             2, personAlexandreMerson.getAge(),
-            3, personSmallGirl.getAge()
+            3, personAnnetBeaumarchez.getAge()
         );
 
         Map<Integer, Human> mapWithNulls = new HashMap<>();
         mapWithNulls.put(15, personOlgaMerson);
         mapWithNulls.put(0, personLucyEarl);
-        mapWithNulls.put(1, personSmallBoy);
+        mapWithNulls.put(1, personNicolasBeau);
         mapWithNulls.put(2, null);
         mapWithNulls.put(3, personCyrillVirth);
         mapWithNulls.put(4, personLucyEarl);
         mapWithNulls.put(5, personAlexandreMerson);
         mapWithNulls.put(6, null);
-        mapWithNulls.put(7, personSmallGirl);
+        mapWithNulls.put(7, personAnnetBeaumarchez);
 
         Map<Integer, Integer> expectedMap2 = Map.of(
             15, personOlgaMerson.getAge(),
             0, personLucyEarl.getAge(),
-            1, personSmallBoy.getAge(),
+            1, personNicolasBeau.getAge(),
             3, personCyrillVirth.getAge(),
             4, personLucyEarl.getAge(),
             5, personAlexandreMerson.getAge(),
-            7, personSmallGirl.getAge()
+            7, personAnnetBeaumarchez.getAge()
         );
 
         Map<Integer, Human> nullsOmlyMap = new HashMap<>();
@@ -324,8 +323,8 @@ public class CollectionsDemoTest {
     @DataProvider
     public static Object[][] getMapAgeToListOfPeopleOfThisAge_PositiveCase_Data() {
         final Set<Human> differentAgePeople = Set.of(
-            personSmallBoy,
-            personSmallGirl,
+            personNicolasBeau,
+            personAnnetBeaumarchez,
             personLucyEarl,
             personLucyVirth,
             personLucyGreen,
@@ -335,13 +334,13 @@ public class CollectionsDemoTest {
             personCyrillVirth,
             personOlgaMerson
         );
-        final List<Human> peopleAge10 = List.of(personSmallBoy, personSmallGirl);
+        final List<Human> peopleAge10 = List.of(personNicolasBeau, personAnnetBeaumarchez);
         final List<Human> peopleAge20 = List.of(personJulieVirth, personAlexandreMerson);
         final List<Human> peopleAge22 = List.of(personLucyEarl, personLucyVirth, personLucyGreen, personLucyBrown);
         final List<Human> peopleAge46 = List.of(personCyrillVirth, personOlgaMerson);
 
         final Map<Integer, List<Human>> map = Map.of(
-            personSmallBoy.getAge(), peopleAge10,
+            personNicolasBeau.getAge(), peopleAge10,
             personJulieVirth.getAge(), peopleAge20,
             personLucyEarl.getAge(), peopleAge22,
             personOlgaMerson.getAge(), peopleAge46
@@ -376,6 +375,7 @@ public class CollectionsDemoTest {
         return new Object[][] { { null } };
     }
 
+    // 6.6
     @Test(dataProvider = "getSortedByFullNameList_PositiveCase_Data")
     public static <T extends Human> void getSortedByFullNameList_PositiveCase_Test(
         final Set<T> givenPeopleSet,
@@ -422,6 +422,63 @@ public class CollectionsDemoTest {
             { givenStudentsSet, expectedSortedStudentsList },
             { Set.of(), List.of() },
             { Set.of(studentAlexandreMerson), List.of(studentAlexandreMerson) },
+        };
+    }
+
+    // 6.11
+    @Test(dataProvider = "getMappingAgeToMappingLetterToPeopleList_PositiveCase_Data")
+    public static <T extends Human> void getMappingAgeToMappingLetterToPeopleList_PositiveCase_Test(
+        final Set<T> people,
+        final Map<Integer, Map<Character, List<T>>> expectedMap
+    ) {
+        final Map<Integer, Map<Character, List<T>>> actualMap = getMappingAgeToMappingLetterToPeopleList(people);
+        assertEquals(actualMap, expectedMap);
+    }
+
+    @DataProvider
+    public static Object[][] getMappingAgeToMappingLetterToPeopleList_PositiveCase_Data() {
+        final Set<Human> givenHumansSet1 = Set.of(
+            personNicolasBeau,
+            personAnnetBeaumarchez,
+            ///////////////////////
+            personLucyBrown,
+            personLucyEarl,
+            personLucyGreen,
+            personLucyVirth,
+            ///////////////////////
+            personJulieVirth,
+            personAlexandreMerson,
+            ///////////////////////
+            personCyrillVirth,
+            personOlgaMerson
+        );
+        final int firstAge  = personNicolasBeau.getAge();
+        final int secondAge = personLucyEarl.getAge();
+        final int thirdAge  = personAlexandreMerson.getAge();
+        final int fourthAge = personOlgaMerson.getAge();
+
+        final Map<Integer, Map<Character, List<Human>>> expectedMap1 = Map.of(
+            firstAge, Map.of(
+                'B', List.of(personNicolasBeau, personAnnetBeaumarchez)
+            ),
+            secondAge, Map.of(
+                'B', List.of(personLucyBrown),
+                'E', List.of(personLucyEarl),
+                'G', List.of(personLucyGreen),
+                'V', List.of(personLucyVirth)
+            ),
+            thirdAge, Map.of(
+                'M', List.of(personAlexandreMerson),
+                'V', List.of(personJulieVirth)
+            ),
+            fourthAge, Map.of(
+                'M', List.of(personOlgaMerson),
+                'V', List.of(personCyrillVirth)
+            )
+        );
+
+        return new Object[][] {
+            { givenHumansSet1, expectedMap1 },
         };
     }
 }

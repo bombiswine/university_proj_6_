@@ -99,7 +99,7 @@ public class CollectionsDemo {
 
     // task 6.10
     public static <T extends Human> Map<Integer, List<T>> getMapAgeToListOfPeopleOfThisAge(
-        Set<T> peopleSet
+        final Set<T> peopleSet
     ) {
         if (peopleSet == null) {
             throw new IllegalArgumentException(
@@ -125,6 +125,12 @@ public class CollectionsDemo {
     public static <T extends Human> List<T> getSortedByFullNameList(
         final Set<T> people
     ) {
+        if (people == null) {
+            throw new IllegalArgumentException(
+                "The null-ref passed to getSortedByFullNameList:" + System.lineSeparator() +
+                "Set<T> people is null"
+            );
+        }
         List<T> sortedList = new LinkedList<>(people);
         sortedList.sort(
             Comparator.comparing(Human::getSurname).
@@ -135,4 +141,39 @@ public class CollectionsDemo {
         return sortedList;
     }
 
+    public static <T extends Human> Map<Integer, Map<Character, List<T>>> getMappingAgeToMappingLetterToPeopleList(
+        final Set<T> people
+    ) {
+        if (people == null) {
+            throw new IllegalArgumentException(
+                "The null-ref passed to getMappingAgeToMappingLetterToPeopleList:" + System.lineSeparator() +
+                "Set<T> people is null"
+            );
+        }
+
+        final Map<Integer, Map<Character, List<T>>> requiredMap = new HashMap<>();
+        final Map<Integer,   List<T>>   mapAgeToPeople = getMapAgeToListOfPeopleOfThisAge(people);
+        final Map<Character, List<T>>   intermediateMapCharacterToPeople = new HashMap<>();
+        char  currentSurnameFirstLetter;
+
+        for (int age : mapAgeToPeople.keySet()) {
+            for (T person : mapAgeToPeople.get(age)){
+                if (person != null) {
+                    currentSurnameFirstLetter = person.getSurname().charAt(0);
+                    if (!intermediateMapCharacterToPeople.containsKey(currentSurnameFirstLetter)) {
+                        intermediateMapCharacterToPeople.put(
+                            currentSurnameFirstLetter,
+                            new LinkedList<>(List.of(person))
+                        );
+                    } else {
+                        intermediateMapCharacterToPeople.get(currentSurnameFirstLetter).add(person);
+                    }
+                }
+            }
+            requiredMap.put(age, intermediateMapCharacterToPeople);
+            intermediateMapCharacterToPeople.clear();
+        }
+
+        return requiredMap;
+    }
 }
