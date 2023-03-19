@@ -11,9 +11,7 @@ public class DataForTesting {
         new FullName("Alexandre", "Igorevich", "Merson"),
         LocalDate.of(2002, 6, 24),
         "Male",
-        "Russian",
-        176,
-        82
+        "Russian"
     );
 
     public final static Student studentAlexandreMerson = new Student(personAlexandreMerson, "IMIT");
@@ -22,31 +20,25 @@ public class DataForTesting {
         new FullName("Olga", "Vladimirovna", "Merson"),
         LocalDate.of(1976, 12, 6),
         "Female",
-        "Russian",
-        155,
-        65
+        "Russian"
     );
 
     public final static Student studentOlgaMerson = new Student(personOlgaMerson, "Psychiatry");
 
     public final static Human personJulieVirth = new Human(
         new FullName("Julie", "", "Virth"),
-        LocalDate.of(2002, 6, 12),
+        LocalDate.of(2002, 6, 24),
         "Female",
-        "Swiss",
-        179,
-        79
+        "Swiss"
     );
 
     public final static Student studentJulieVirth = new Student(personJulieVirth, "Economics");
 
     public final static Human personCyrillVirth = new Human(
         new FullName("Cyrill", "", "Virth"),
-        LocalDate.of(1976, 10, 12),
+        LocalDate.of(1976, 12, 6),
         "Male",
-        "Russian",
-        180,
-        90
+        "Russian"
     );
 
     public final static Student studentCyrillVirth = new Student(personCyrillVirth, "Boilogy");
@@ -55,9 +47,7 @@ public class DataForTesting {
         new FullName("Lucy", "", "Earl"),
         LocalDate.of(2000, 5, 12),
         "Female",
-        "English",
-        181,
-        65
+        "English"
     );
 
     public final static Student studentLucyEarl = new Student(personLucyEarl, "Boilogy");
@@ -66,9 +56,7 @@ public class DataForTesting {
         new FullName("Lucy", "", "Brown"),
         LocalDate.of(2000, 5, 12),
         "Female",
-        "English",
-        169,
-        65
+        "English"
     );
 
     public final static Student studentLucyBrown = new Student(personLucyBrown, "English Literature");
@@ -77,9 +65,7 @@ public class DataForTesting {
         new FullName("Lucy", "", "Virth"),
         LocalDate.of(2000, 5, 12),
         "Female",
-        "English",
-        171,
-        65
+        "English"
     );
 
     public final static Student studentLucyVirth = new Student(personLucyVirth, "History");
@@ -88,28 +74,22 @@ public class DataForTesting {
         new FullName("Lucy", "", "Green"),
         LocalDate.of(2000, 5, 12),
         "Female",
-        "English",
-        175,
-        65
+        "English"
     );
 
     public final static Student studentLucyGreen = new Student(personLucyGreen, "Phisics");
 
-    public final static Human personSmallGirl = new Human(
+    public final static Human personAnnetBeaumarchez = new Human(
         new FullName("Annet", "", "Beaumarchez"),
         LocalDate.of(2013, 1, 11),
         "Female",
-        "French",
-        156,
-        43
+        "French"
     );
 
-    public final static Human personSmallBoy = new Human(
+    public final static Human personNicolasBeau = new Human(
         new FullName("Nicolas", "", "Beau"),
         LocalDate.of(2013, 1, 11),
         "Male",
-        "French",
-        148,
-        45
+        "French"
     );
 }
