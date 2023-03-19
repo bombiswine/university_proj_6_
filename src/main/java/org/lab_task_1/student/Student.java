@@ -13,11 +13,9 @@ public class Student extends Human {
         final LocalDate birthDate,
         final String gender,
         final String nationality,
-        final int height,
-        final int weight,
         final String faculty
     ) {
-        super(fullName, birthDate, gender, nationality, height, weight);
+        super(fullName, birthDate, gender, nationality);
         if (faculty == null) {
             throw new IllegalArgumentException(
                 "Null-ref passed to Student constructor as faculty-name"
