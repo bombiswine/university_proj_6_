@@ -3,7 +3,6 @@ package seminar_1;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -78,12 +77,12 @@ public class DataServiceTest {
     @DataProvider
     public static Object[][] getDataWithNamesFromGivenNamesSet_PositiveCase_Data() {
         List<Data> dataList   = List.of(lucyEarl, lucyEarl, alexandre, lucySmith, liner, lucyEarl, curve);
-        Set<String> namesSet1 = new HashSet<>(List.of("Lucy", "Stabilo point 88"));
-        Set<String> namesSet2 = new HashSet<>(List.of("Stabilo point 88"));
-        Set<String> namesSet3 = new HashSet<>(List.of("Alexandre", "Hyperbola", "Lucy", "Stabilo point 88"));
-        Set<String> namesSet4 = new HashSet<>(List.of("Parabola"));
-        Set<String> namesSet5 = new HashSet<>(List.of("Alexandre", "Parabola"));
-        Set<String> namesSet6 = new HashSet<>();
+        Set<String> namesSet1 = Set.of("Lucy", "Stabilo point 88");
+        Set<String> namesSet2 = Set.of("Stabilo point 88");
+        Set<String> namesSet3 = Set.of("Alexandre", "Hyperbola", "Lucy", "Stabilo point 88");
+        Set<String> namesSet4 = Set.of("Parabola");
+        Set<String> namesSet5 = Set.of("Alexandre", "Parabola");
+        Set<String> namesSet6 = Set.of();
 
         return new Object[][] {
             { dataList, namesSet1, List.of(lucyEarl, lucyEarl, lucySmith, liner, lucyEarl) },
