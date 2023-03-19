@@ -7,7 +7,7 @@ import java.util.Set;
 public class DataService {
     public static List<Data> getNamesakesList(
         final List<Data> dataList,
-        final String name
+        final String     name
     ) {
         List<Data> nameSakes = new LinkedList<>();
         if (dataList != null) {
