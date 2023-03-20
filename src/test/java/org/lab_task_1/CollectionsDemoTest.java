@@ -438,12 +438,12 @@ public class CollectionsDemoTest {
 
     @DataProvider
     public static Object[][] getMappingAgeToMappingLetterToPeopleList_PositiveCase_Data() {
-        final int firstAge  = personNicolasBeau.getAge();
-        final int secondAge = personLucyEarl.getAge();
-        final int thirdAge  = personAlexandreMerson.getAge();
-        final int fourthAge = personOlgaMerson.getAge();
+        final int FIRST_AGE = personNicolasBeau.getAge();
+        final int SECOND_AGE = personLucyEarl.getAge();
+        final int THIRD_AGE  = personAlexandreMerson.getAge();
+        final int FOURTH_AGE = personOlgaMerson.getAge();
 
-        final Set<Human> givenHumansSetWithDifferentAgePeople = Set.of(
+        final Set<Human> givenHumansSetWithDifferentAgePeopleWithoutNull = Set.of(
             personNicolasBeau,
             personAnnetBeaumarchais,
             ///////////////////////
@@ -462,21 +462,44 @@ public class CollectionsDemoTest {
             personCyrillVirth,
             personOlgaMerson
         );
+
+        final Set<Human> givenHumansSetWithDifferentAgePeopleWithNulls = new HashSet<>();
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(personNicolasBeau);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(null);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(personAnnetBeaumarchais);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(personAlexBabington);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(personLukeBrown);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(null);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(null);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(personLucyBrown);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(personLucyEarl);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(personArielGreen);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(null);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(personLucyGreen);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(personLucyVirth);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(personPierreVeron);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(personJulieVirth);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(null);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(personAlexandreMerson);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(personCyrillVirth);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(null);
+        givenHumansSetWithDifferentAgePeopleWithNulls.add(personOlgaMerson);
+
         final Map<Integer, Map<Character, List<Human>>> expectedMapAgeToMapCharToHumanList_1 = Map.of(
-            firstAge, Map.of(
+            FIRST_AGE, Map.of(
                 'B', List.of(personNicolasBeau, personAnnetBeaumarchais)
             ),
-            secondAge, Map.of(
+            SECOND_AGE, Map.of(
                 'B', List.of(personAlexBabington, personLucyBrown, personLukeBrown),
                 'E', List.of(personLucyEarl),
                 'G', List.of(personArielGreen, personLucyGreen),
                 'V', List.of(personLucyVirth)
             ),
-            thirdAge, Map.of(
+            THIRD_AGE, Map.of(
                 'M', List.of(personAlexandreMerson),
                 'V', List.of(personPierreVeron, personJulieVirth)
             ),
-            fourthAge, Map.of(
+            FOURTH_AGE, Map.of(
                 'M', List.of(personOlgaMerson),
                 'V', List.of(personCyrillVirth)
             )
@@ -492,7 +515,7 @@ public class CollectionsDemoTest {
             personLucyVirth
         );
         final Map<Integer, Map<Character, List<Human>>> expectedMapAgeToCharToHumanList_2 = Map.of(
-            secondAge, Map.of(
+            SECOND_AGE, Map.of(
                 'B', List.of(personAlexBabington, personLucyBrown, personLukeBrown),
                 'E', List.of(personLucyEarl),
                 'G', List.of(personArielGreen, personLucyGreen),
@@ -517,28 +540,43 @@ public class CollectionsDemoTest {
             studentOlgaMerson
         );
         final Map<Integer, Map<Character, List<Student>>> expectedMapAgeToMapCharToStudentList_1 = Map.of(
-            secondAge, Map.of(
+            SECOND_AGE, Map.of(
                 'B', List.of(studentAlexBabington, studentLucyBrown, studentLukeBrown),
                 'E', List.of(studentLucyEarl),
                 'G', List.of(studentArielGreen, studentLucyGreen),
                 'V', List.of(studentLucyVirth)
             ),
-            thirdAge, Map.of(
+            THIRD_AGE, Map.of(
                 'M', List.of(studentAlexandreMerson),
                 'V', List.of(studentPierreVeron, studentJulieVirth)
             ),
-            fourthAge, Map.of(
+            FOURTH_AGE, Map.of(
                 'M', List.of(studentOlgaMerson),
                 'V', List.of(studentCyrillVirth)
             )
         );
 
         return new Object[][] {
-            { givenHumansSetWithDifferentAgePeople, expectedMapAgeToMapCharToHumanList_1 },
+            { givenHumansSetWithDifferentAgePeopleWithoutNull, expectedMapAgeToMapCharToHumanList_1 },
+            { givenHumansSetWithDifferentAgePeopleWithNulls, expectedMapAgeToMapCharToHumanList_1 },
             { givenHumansSetWithSameAgePeople, expectedMapAgeToCharToHumanList_2 },
             { Set.of(new Human[] {}), Map.of() },
             { givenStudentSetWithDifferentAgePeople, expectedMapAgeToMapCharToStudentList_1 },
             { Set.of(new Student[] {}), Map.of() },
         };
+    }
+
+    @Test(
+        dataProvider = "getMappingAgeToMappingLetterToPeopleList_ThrowsIllegalArgumentException_Data",
+        expectedExceptions = IllegalArgumentException.class
+    )
+    public static <T extends Human> void getMappingAgeToMappingLetterToPeopleList_ThrowsIllegalArgumentException_Test(
+        final Set<T> people
+    ) {
+        getMappingAgeToMappingLetterToPeopleList(people);
+    }
+    @DataProvider
+    public static Object[][] getMappingAgeToMappingLetterToPeopleList_ThrowsIllegalArgumentException_Data() {
+        return new Object[][] { { null } };
     }
 }
