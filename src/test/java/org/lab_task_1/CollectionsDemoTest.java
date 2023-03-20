@@ -1,6 +1,7 @@
 package org.lab_task_1;
 
 import org.lab_task_1.human.Human;
+import org.lab_task_1.student.Student;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -161,7 +162,7 @@ public class CollectionsDemoTest {
             0, personLucyEarl,
             1, personNicolasBeau,
             2, personAlexandreMerson,
-            3, personAnnetBeaumarchez
+            3, personAnnetBeaumarchais
         );
         Map<Integer, Human> mapWithAdultsOnly = Map.of(
             0, personLucyEarl,
@@ -171,9 +172,9 @@ public class CollectionsDemoTest {
         );
         Map<Integer, Human> mapWithChildrenOnly = Map.of(
             0, personNicolasBeau,
-            1, personAnnetBeaumarchez,
+            1, personAnnetBeaumarchais,
             2, personNicolasBeau,
-            3, personAnnetBeaumarchez
+            3, personAnnetBeaumarchais
         );
 
         Map<Integer, Human> mapWithNulls = new HashMap<>();
@@ -184,7 +185,7 @@ public class CollectionsDemoTest {
         mapWithNulls.put(4, personLucyEarl);
         mapWithNulls.put(5, personAlexandreMerson);
         mapWithNulls.put(6, null);
-        mapWithNulls.put(7, personAnnetBeaumarchez);
+        mapWithNulls.put(7, personAnnetBeaumarchais);
 
         return new Object[][] {
             { mapWithAdultsAndChildren, allKeysSet, Set.of(0, 2) },
@@ -225,7 +226,7 @@ public class CollectionsDemoTest {
             0, personLucyEarl,
             1, personNicolasBeau,
             2, personAlexandreMerson,
-            3, personAnnetBeaumarchez
+            3, personAnnetBeaumarchais
         );
 
         return new Object[][] {
@@ -249,13 +250,13 @@ public class CollectionsDemoTest {
             0, personLucyEarl,
             1, personNicolasBeau,
             2, personAlexandreMerson,
-            3, personAnnetBeaumarchez
+            3, personAnnetBeaumarchais
         );
         Map<Integer, Integer> expectedMap1 = Map.of(
             0, personLucyEarl.getAge(),
             1, personNicolasBeau.getAge(),
             2, personAlexandreMerson.getAge(),
-            3, personAnnetBeaumarchez.getAge()
+            3, personAnnetBeaumarchais.getAge()
         );
 
         Map<Integer, Human> mapWithNulls = new HashMap<>();
@@ -267,7 +268,7 @@ public class CollectionsDemoTest {
         mapWithNulls.put(4, personLucyEarl);
         mapWithNulls.put(5, personAlexandreMerson);
         mapWithNulls.put(6, null);
-        mapWithNulls.put(7, personAnnetBeaumarchez);
+        mapWithNulls.put(7, personAnnetBeaumarchais);
 
         Map<Integer, Integer> expectedMap2 = Map.of(
             15, personOlgaMerson.getAge(),
@@ -276,7 +277,7 @@ public class CollectionsDemoTest {
             3, personCyrillVirth.getAge(),
             4, personLucyEarl.getAge(),
             5, personAlexandreMerson.getAge(),
-            7, personAnnetBeaumarchez.getAge()
+            7, personAnnetBeaumarchais.getAge()
         );
 
         Map<Integer, Human> nullsOmlyMap = new HashMap<>();
@@ -324,7 +325,7 @@ public class CollectionsDemoTest {
     public static Object[][] getMapAgeToListOfPeopleOfThisAge_PositiveCase_Data() {
         final Set<Human> differentAgePeople = Set.of(
             personNicolasBeau,
-            personAnnetBeaumarchez,
+            personAnnetBeaumarchais,
             personLucyEarl,
             personLucyVirth,
             personLucyGreen,
@@ -334,7 +335,7 @@ public class CollectionsDemoTest {
             personCyrillVirth,
             personOlgaMerson
         );
-        final List<Human> peopleAge10 = List.of(personNicolasBeau, personAnnetBeaumarchez);
+        final List<Human> peopleAge10 = List.of(personNicolasBeau, personAnnetBeaumarchais);
         final List<Human> peopleAge20 = List.of(personJulieVirth, personAlexandreMerson);
         final List<Human> peopleAge22 = List.of(personLucyEarl, personLucyVirth, personLucyGreen, personLucyBrown);
         final List<Human> peopleAge46 = List.of(personCyrillVirth, personOlgaMerson);
@@ -437,39 +438,43 @@ public class CollectionsDemoTest {
 
     @DataProvider
     public static Object[][] getMappingAgeToMappingLetterToPeopleList_PositiveCase_Data() {
-        final Set<Human> givenHumansSet1 = Set.of(
+        final int firstAge  = personNicolasBeau.getAge();
+        final int secondAge = personLucyEarl.getAge();
+        final int thirdAge  = personAlexandreMerson.getAge();
+        final int fourthAge = personOlgaMerson.getAge();
+
+        final Set<Human> givenHumansSetWithDifferentAgePeople = Set.of(
             personNicolasBeau,
-            personAnnetBeaumarchez,
+            personAnnetBeaumarchais,
             ///////////////////////
+            personAlexBabington,
+            personLukeBrown,
             personLucyBrown,
             personLucyEarl,
+            personArielGreen,
             personLucyGreen,
             personLucyVirth,
             ///////////////////////
+            personPierreVeron,
             personJulieVirth,
             personAlexandreMerson,
             ///////////////////////
             personCyrillVirth,
             personOlgaMerson
         );
-        final int firstAge  = personNicolasBeau.getAge();
-        final int secondAge = personLucyEarl.getAge();
-        final int thirdAge  = personAlexandreMerson.getAge();
-        final int fourthAge = personOlgaMerson.getAge();
-
-        final Map<Integer, Map<Character, List<Human>>> expectedMap1 = Map.of(
+        final Map<Integer, Map<Character, List<Human>>> expectedMapAgeToMapCharToHumanList_1 = Map.of(
             firstAge, Map.of(
-                'B', List.of(personNicolasBeau, personAnnetBeaumarchez)
+                'B', List.of(personNicolasBeau, personAnnetBeaumarchais)
             ),
             secondAge, Map.of(
-                'B', List.of(personLucyBrown),
+                'B', List.of(personAlexBabington, personLucyBrown, personLukeBrown),
                 'E', List.of(personLucyEarl),
-                'G', List.of(personLucyGreen),
+                'G', List.of(personArielGreen, personLucyGreen),
                 'V', List.of(personLucyVirth)
             ),
             thirdAge, Map.of(
                 'M', List.of(personAlexandreMerson),
-                'V', List.of(personJulieVirth)
+                'V', List.of(personPierreVeron, personJulieVirth)
             ),
             fourthAge, Map.of(
                 'M', List.of(personOlgaMerson),
@@ -477,8 +482,63 @@ public class CollectionsDemoTest {
             )
         );
 
+        final Set<Human> givenHumansSetWithSameAgePeople = Set.of(
+            personAlexBabington,
+            personLukeBrown,
+            personLucyBrown,
+            personLucyEarl,
+            personArielGreen,
+            personLucyGreen,
+            personLucyVirth
+        );
+        final Map<Integer, Map<Character, List<Human>>> expectedMapAgeToCharToHumanList_2 = Map.of(
+            secondAge, Map.of(
+                'B', List.of(personAlexBabington, personLucyBrown, personLukeBrown),
+                'E', List.of(personLucyEarl),
+                'G', List.of(personArielGreen, personLucyGreen),
+                'V', List.of(personLucyVirth)
+            )
+        );
+
+        final Set<Student> givenStudentSetWithDifferentAgePeople = Set.of(
+            studentAlexBabington,
+            studentLucyBrown,
+            studentLukeBrown,
+            studentLucyEarl,
+            studentArielGreen,
+            studentLucyGreen,
+            studentLucyVirth,
+            ///////////////////////
+            studentPierreVeron,
+            studentJulieVirth,
+            studentAlexandreMerson,
+            ///////////////////////
+            studentCyrillVirth,
+            studentOlgaMerson
+        );
+        final Map<Integer, Map<Character, List<Student>>> expectedMapAgeToMapCharToStudentList_1 = Map.of(
+            secondAge, Map.of(
+                'B', List.of(studentAlexBabington, studentLucyBrown, studentLukeBrown),
+                'E', List.of(studentLucyEarl),
+                'G', List.of(studentArielGreen, studentLucyGreen),
+                'V', List.of(studentLucyVirth)
+            ),
+            thirdAge, Map.of(
+                'M', List.of(studentAlexandreMerson),
+                'V', List.of(studentPierreVeron, studentJulieVirth)
+            ),
+            fourthAge, Map.of(
+                'M', List.of(studentOlgaMerson),
+                'V', List.of(studentCyrillVirth)
+            )
+        );
+
         return new Object[][] {
-            { givenHumansSet1, expectedMap1 },
+            { givenHumansSetWithDifferentAgePeople, expectedMapAgeToMapCharToHumanList_1 },
+            { givenHumansSetWithSameAgePeople, expectedMapAgeToCharToHumanList_2 },
+            { Set.of(new Human[] {}), Map.of() },
+            { givenStudentSetWithDifferentAgePeople, expectedMapAgeToMapCharToStudentList_1 },
+            { Set.of(new Student[] {}), Map.of() },
         };
     }
 }

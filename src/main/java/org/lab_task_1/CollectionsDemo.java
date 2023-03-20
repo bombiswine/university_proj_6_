@@ -104,7 +104,7 @@ public class CollectionsDemo {
         if (peopleSet == null) {
             throw new IllegalArgumentException(
                 "The null-ref passed to getMapAgeToPeopleOfThisAge:" + System.lineSeparator() +
-                "Set<T> peopleSet is null"
+                    "Set<T> peopleSet is null"
             );
         }
         final Map<Integer, List<T>> ageToPeopleMap = new HashMap<>();
@@ -128,50 +128,64 @@ public class CollectionsDemo {
         if (people == null) {
             throw new IllegalArgumentException(
                 "The null-ref passed to getSortedByFullNameList:" + System.lineSeparator() +
-                "Set<T> people is null"
+                    "Set<T> people is null"
             );
         }
         List<T> sortedList = new LinkedList<>(people);
         sortedList.sort(
             Comparator.comparing(Human::getSurname).
-            thenComparing(Human::getName).
-            thenComparing(Human::getMiddleName)
+                thenComparing(Human::getName).
+                thenComparing(Human::getMiddleName)
         );
 
         return sortedList;
     }
 
+
+    // task 6.11
     public static <T extends Human> Map<Integer, Map<Character, List<T>>> getMappingAgeToMappingLetterToPeopleList(
         final Set<T> people
     ) {
         if (people == null) {
             throw new IllegalArgumentException(
                 "The null-ref passed to getMappingAgeToMappingLetterToPeopleList:" + System.lineSeparator() +
-                "Set<T> people is null"
+                    "Set<T> people is null"
             );
         }
 
         final Map<Integer, Map<Character, List<T>>> requiredMap = new HashMap<>();
-        final Map<Integer,   List<T>>   mapAgeToPeople = getMapAgeToListOfPeopleOfThisAge(people);
-        final Map<Character, List<T>>   intermediateMapCharacterToPeople = new HashMap<>();
-        char  currentSurnameFirstLetter;
+        final Map<Integer,   List<T>>  mapAgeToPeopleList = getMapAgeToListOfPeopleOfThisAge(people);
+        final Map<Character, List<T>>  mapCharacterToPeopleListWhoseSurnameStartsWithGivenCharacter = new HashMap<>();
+        char surnameFirstLetter;
 
-        for (int age : mapAgeToPeople.keySet()) {
-            for (T person : mapAgeToPeople.get(age)){
+        for (int age : mapAgeToPeopleList.keySet()) {
+            // iterating through a list of people of current age
+            for (T person : mapAgeToPeopleList.get(age)) {
+                // for every person of current age, define the mapping
+                // character -> people whose surname starts with this character
                 if (person != null) {
-                    currentSurnameFirstLetter = person.getSurname().charAt(0);
-                    if (!intermediateMapCharacterToPeople.containsKey(currentSurnameFirstLetter)) {
-                        intermediateMapCharacterToPeople.put(
-                            currentSurnameFirstLetter,
-                            new LinkedList<>(List.of(person))
+                    surnameFirstLetter = person.getSurname().charAt(0);
+                    if (!mapCharacterToPeopleListWhoseSurnameStartsWithGivenCharacter.containsKey(surnameFirstLetter)) {
+                        mapCharacterToPeopleListWhoseSurnameStartsWithGivenCharacter.put(
+                            surnameFirstLetter,
+                            new LinkedList<>(List.of(person))                       // asa List.of returns immutable list
                         );
                     } else {
-                        intermediateMapCharacterToPeople.get(currentSurnameFirstLetter).add(person);
+                        mapCharacterToPeopleListWhoseSurnameStartsWithGivenCharacter.get(surnameFirstLetter).add(person);
                     }
                 }
             }
-            requiredMap.put(age, intermediateMapCharacterToPeople);
-            intermediateMapCharacterToPeople.clear();
+            // sort every list in current mapping 'char -> people list' by full name
+            for (char character : mapCharacterToPeopleListWhoseSurnameStartsWithGivenCharacter.keySet()) {
+                mapCharacterToPeopleListWhoseSurnameStartsWithGivenCharacter.get(character).sort(
+                    Comparator.comparing(Human::getSurname).
+                        thenComparing(Human::getName).
+                        thenComparing(Human::getMiddleName)
+                );
+            }
+            // add current intermediate mapping's deep copy to the required mapping
+            requiredMap.put(age, new HashMap<>(mapCharacterToPeopleListWhoseSurnameStartsWithGivenCharacter));
+            mapCharacterToPeopleListWhoseSurnameStartsWithGivenCharacter.clear();
         }
 
         return requiredMap;
