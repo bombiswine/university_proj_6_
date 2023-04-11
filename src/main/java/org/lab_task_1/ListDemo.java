@@ -1,12 +1,12 @@
 package org.lab_task_1;
 
-import org.lab_task_1.human.Human;
+import org.human.Human;
 
 import java.util.*;
 
 public class ListDemo {
     public static List<Human> getNamesakesList(List<Human> humans, Human person) {
-        List<Human> nameSakes = new LinkedList<>();
+        final List<Human> nameSakes = new LinkedList<>();
         if (humans != null) {
             for (Human human : humans) {
                 if (human != null && human.getSurname().equals(person.getSurname())) {
@@ -30,7 +30,7 @@ public class ListDemo {
             );
         }
 
-        List<Human> newPeopleList = new LinkedList<>();
+        final List<Human> newPeopleList = new LinkedList<>();
         for (Human prsn : people) {
             if (!person.equals(prsn)) {
                 newPeopleList.add(prsn == null ? null : new Human(prsn));
@@ -41,8 +41,8 @@ public class ListDemo {
     }
 
     public static List<Set<Integer>> getListOfSetsHavingEmptyIntersectionWithGivenSet(
-        List<Set<Integer>> setList,
-        Set<Integer> givenSet
+        final List<Set<Integer>> setList,
+        final Set<Integer> givenSet
     ) {
         if (givenSet == null) {
             throw new IllegalArgumentException(
@@ -55,7 +55,7 @@ public class ListDemo {
             );
         }
 
-        List<Set<Integer>> ListOfSetsHavingEmptyIntersectionWithGivenSet = new LinkedList<>();
+        final List<Set<Integer>> ListOfSetsHavingEmptyIntersectionWithGivenSet = new LinkedList<>();
         for (Set<Integer> set : setList) {
             if (!new TreeSet<>(set).removeAll(givenSet)) {
                 ListOfSetsHavingEmptyIntersectionWithGivenSet.add(set);
@@ -72,8 +72,8 @@ public class ListDemo {
             );
         }
 
-        Set<T>  oldestPeople = new TreeSet<>();
-        List<T> peopleListCopy  = new ArrayList<>(givenPeopleList);
+        final Set<T>  oldestPeople = new TreeSet<>();
+        final List<T> peopleListCopy  = new ArrayList<>(givenPeopleList);
         peopleListCopy.removeAll(Collections.singleton(null));
 
         if (!peopleListCopy.isEmpty()) {

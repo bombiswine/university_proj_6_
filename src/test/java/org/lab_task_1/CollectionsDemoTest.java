@@ -1,6 +1,6 @@
 package org.lab_task_1;
 
-import org.lab_task_1.human.Human;
+import org.human.Human;
 import org.lab_task_1.student.Student;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -48,35 +48,35 @@ public class CollectionsDemoTest {
         final Set<T>          expectedPeopleSet
     ) {
         final Set<T> actualPeopleSet = getPeopleWithIdentifiersFromGivenSet(map, keys);
-        assertEquals(expectedPeopleSet, actualPeopleSet);
+        assertEquals(actualPeopleSet, expectedPeopleSet);
     }
 
     @DataProvider
     public static Object[][] getPeopleWithIdentifiersFromGivenSet_PositiveCase_Data() {
-        Set<Integer> allKeysSet = new TreeSet<>(List.of(0, 1, 2, 3, 4, 5, 6, 7));
-        Set<Integer> evenKeysSet = new TreeSet<>(List.of(0, 2, 4, 6));
-        Set<Integer> randomKeysSet = new TreeSet<>(List.of(0, 12, 1, 7, -5, 32, -13));
-        Set<Integer> notPresentedKeysSet = new TreeSet<>(List.of(12, -21, 17, -5, 32, -13));
+        final Set<Integer> allKeysSet          = Set.of(0, 1, 2, 3, 4, 5, 6, 7);
+        final Set<Integer> evenKeysSet         = Set.of(0, 2, 4, 6);
+        final Set<Integer> randomKeysSet       = Set.of(0, 12, 1, 7, -5, 32, -13);
+        final Set<Integer> notPresentedKeysSet = Set.of(12, -21, 17, -5, 32, -13);
 
-        Set<Human>  peopleWithEvenKeys = Set.of(
+        final Set<Human>  peopleWithEvenKeys = Set.of(
             personLucyEarl,
             personCyrillVirth,
             personOlgaMerson,
             personLucyVirth
         );
-        Set<Human>  peopleWithKeysFromRandomKeysSet = Set.of(
+        final Set<Human>  peopleWithKeysFromRandomKeysSet = Set.of(
             personLucyEarl,
             personAlexandreMerson,
             personLucyGreen
         );
-        Set<Human> nonNullPeopleSet = Set.of(
+        final Set<Human> nonNullPeopleSet = Set.of(
             personAlexandreMerson,
             personLucyBrown,
             personLucyGreen,
             personOlgaMerson
         );
 
-        Map<Integer, Human> mapWithNulls = new HashMap<>();
+        final Map<Integer, Human> mapWithNulls = new HashMap<>();
         mapWithNulls.put(0, personLucyBrown);
         mapWithNulls.put(1, personAlexandreMerson);
         mapWithNulls.put(2, null);
@@ -86,7 +86,7 @@ public class CollectionsDemoTest {
         mapWithNulls.put(6, personOlgaMerson);
         mapWithNulls.put(7, null);
 
-        Map<Integer, Human> mapWithoutNull = Map.of(
+        final Map<Integer, Human> mapWithoutNull = Map.of(
             0, personLucyEarl,
             1, personAlexandreMerson,
             2, personCyrillVirth,
@@ -154,30 +154,30 @@ public class CollectionsDemoTest {
 
     @DataProvider
     public static Object[][] getKeysOfAdultsInGivenMap_PositiveCase_Data() {
-        Set<Integer> allKeysSet          = Set.of(0, 1, 2, 3);
-        Set<Integer> randomKeysSet       = Set.of(0, 12, 1, 7, -5, 32, -13);
-        Set<Integer> notPresentedKeysSet = Set.of(12, -21, 17, -5, 32, -13);
+        final Set<Integer> allKeysSet          = Set.of(0, 1, 2, 3);
+        final Set<Integer> randomKeysSet       = Set.of(0, 12, 1, 7, -5, 32, -13);
+        final Set<Integer> notPresentedKeysSet = Set.of(12, -21, 17, -5, 32, -13);
 
-        Map<Integer, Human> mapWithAdultsAndChildren = Map.of(
+        final Map<Integer, Human> mapWithAdultsAndChildren = Map.of(
             0, personLucyEarl,
             1, personNicolasBeau,
             2, personAlexandreMerson,
             3, personAnnetBeaumarchais
         );
-        Map<Integer, Human> mapWithAdultsOnly = Map.of(
+        final Map<Integer, Human> mapWithAdultsOnly = Map.of(
             0, personLucyEarl,
             1, personAlexandreMerson,
             2, personCyrillVirth,
             3, personLucyGreen
         );
-        Map<Integer, Human> mapWithChildrenOnly = Map.of(
+        final Map<Integer, Human> mapWithChildrenOnly = Map.of(
             0, personNicolasBeau,
             1, personAnnetBeaumarchais,
             2, personNicolasBeau,
             3, personAnnetBeaumarchais
         );
 
-        Map<Integer, Human> mapWithNulls = new HashMap<>();
+        final Map<Integer, Human> mapWithNulls = new HashMap<>();
         mapWithNulls.put(0, personLucyEarl);
         mapWithNulls.put(1, personNicolasBeau);
         mapWithNulls.put(2, null);
@@ -222,7 +222,7 @@ public class CollectionsDemoTest {
 
     @DataProvider
     public static Object[][] getKeysOfAdultsInGivenMap_ThrowsIllegalArgumentException_Data() {
-        Map<Integer, Human> mapWithoutNull = Map.of(
+        final Map<Integer, Human> mapWithoutNull = Map.of(
             0, personLucyEarl,
             1, personNicolasBeau,
             2, personAlexandreMerson,
@@ -246,20 +246,20 @@ public class CollectionsDemoTest {
 
     @DataProvider
     public static Object[][] getMapKeyToAge_PositiveCase_Data() {
-        Map<Integer, Human> mapWithoutNull = Map.of(
+        final Map<Integer, Human> mapWithoutNull = Map.of(
             0, personLucyEarl,
             1, personNicolasBeau,
             2, personAlexandreMerson,
             3, personAnnetBeaumarchais
         );
-        Map<Integer, Integer> expectedMap1 = Map.of(
+        final Map<Integer, Integer> expectedMap1 = Map.of(
             0, personLucyEarl.getAge(),
             1, personNicolasBeau.getAge(),
             2, personAlexandreMerson.getAge(),
             3, personAnnetBeaumarchais.getAge()
         );
 
-        Map<Integer, Human> mapWithNulls = new HashMap<>();
+        final Map<Integer, Human> mapWithNulls = new HashMap<>();
         mapWithNulls.put(15, personOlgaMerson);
         mapWithNulls.put(0, personLucyEarl);
         mapWithNulls.put(1, personNicolasBeau);
@@ -270,7 +270,7 @@ public class CollectionsDemoTest {
         mapWithNulls.put(6, null);
         mapWithNulls.put(7, personAnnetBeaumarchais);
 
-        Map<Integer, Integer> expectedMap2 = Map.of(
+        final Map<Integer, Integer> expectedMap2 = Map.of(
             15, personOlgaMerson.getAge(),
             0, personLucyEarl.getAge(),
             1, personNicolasBeau.getAge(),
@@ -280,7 +280,7 @@ public class CollectionsDemoTest {
             7, personAnnetBeaumarchais.getAge()
         );
 
-        Map<Integer, Human> nullsOmlyMap = new HashMap<>();
+        final Map<Integer, Human> nullsOmlyMap = new HashMap<>();
         nullsOmlyMap.put(7, null);
         nullsOmlyMap.put(17, null);
         nullsOmlyMap.put(-77, null);

@@ -1,6 +1,6 @@
 package org.lab_task_1;
 
-import org.lab_task_1.human.Human;
+import org.human.Human;
 
 import java.util.*;
 
@@ -149,7 +149,7 @@ public class CollectionsDemo {
         if (people == null) {
             throw new IllegalArgumentException(
                 "The null-ref passed to getMappingAgeToMappingLetterToPeopleList:" + System.lineSeparator() +
-                    "Set<T> people is null"
+                "Set<T> people is null"
             );
         }
 

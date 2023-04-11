@@ -3,6 +3,7 @@ package seminar_1;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ public class DataServiceTest {
     static class DataServiceTestData {
 
         public final static Data lucyEarl  = new Data("Lucy", 1998.0);
+
         public final static Data lucySmith = new Data("Lucy", 1995.0);
         public final static Data alexandre = new Data("Alexandre", 2002.0);
         public final static Data liner     = new Data("Stabilo point 88", 2016.0);
@@ -51,7 +53,6 @@ public class DataServiceTest {
         final List<Data> actualList = getDataWithValueNotGreaterThanGivenBound(dataList, level);
         assertEquals(actualList, expectedList);
     }
-
     @DataProvider
     public static Object[][] getDataWithValueNotGreaterThanGivenBound_PositiveCase_Data() {
         List<Data> dataList = List.of(lucyEarl, alexandre, lucySmith, liner, curve);
@@ -93,6 +94,73 @@ public class DataServiceTest {
             { dataList, namesSet6, List.of() },
         };
     }
+
+    @Test(dataProvider = "getDataWithPositiveValue_ReturnsStringArraysWithNamesOfDataFromGivenListThenGood_TestingData")
+    public static void getDataWithPositiveValue_ReturnsStringArraysWithNamesOfDataFromGivenListThenGood_Test(
+        final List<Data> dataList,
+        final String[]   expectedNames
+    ) {
+        final String[] actualNames = getDataWithPositiveValue(dataList);
+        assertEquals(actualNames, expectedNames);
+    }
+
+    @DataProvider
+    public static Object[][] getDataWithPositiveValue_ReturnsStringArraysWithNamesOfDataFromGivenListThenGood_TestingData() {
+        final List<Data> generalList = new ArrayList<>();
+        generalList.add(new Data("Aname", -10.5));
+        generalList.add(new Data("Bname", 10.5));
+        generalList.add(new Data("Cname", -155.5));
+        generalList.add(null);
+        generalList.add(new Data("Dname", 2010.5));
+        generalList.add(new Data("Ename", 0.0));
+        generalList.add(new Data("Fname", 0.00005));
+        generalList.add(new Data("Gname", -0.00005));
+
+        final List<Data> listWithNegativeValueData = List.of(
+            new Data("Aname", -10.5),
+            new Data("Bname", -210.5),
+            new Data("Cname", -0.005)
+        );
+
+        final List<Data> listWithPositiveValueData = List.of(
+            new Data("Aname", 10.5),
+            new Data("Bname", 210.5),
+            new Data("Cname", 0.005)
+        );
+
+        final List<Data> nullsList = new ArrayList<>();
+        nullsList.add(null);
+        nullsList.add(null);
+        nullsList.add(null);
+
+        final List<Data> listWithZeroValueData = List.of(
+            new Data("Aname", 0.0),
+            new Data("Bname", 0.0),
+            new Data("Cname", 0.0)
+        );
+
+        final List<Data> listDuplicatePositiveValueData = List.of(
+            new Data("Aname", 10.5),
+            new Data("Aname", 20.5),
+            new Data("Aname", 130.5),
+            new Data("Bname", -210.5),
+            new Data("Cname", -0.005),
+            new Data("Dname", 0.005)
+        );
+
+
+        return new Object[][] {
+            { generalList, new String[] { "Bname", "Dname", "Fname" } },
+            { listWithNegativeValueData, new String[ 0 ] },
+            { List.of(), new String[ 0 ] },
+            { listWithPositiveValueData, new String[] { "Aname", "Bname", "Cname" } },
+            { nullsList, new String[ 0 ] },
+            { listWithZeroValueData, new String[ 0 ] },
+            { listDuplicatePositiveValueData, new String[] { "Aname", "Aname", "Aname","Dname" } },
+        };
+    }
+
+
 }
 
 
